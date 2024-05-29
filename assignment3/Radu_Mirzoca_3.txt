@@ -6,3 +6,6 @@ https://infoarena.ro/job_detail/3231496
 
 inversmodular:
 https://infoarena.ro/job_detail/3232266
+
+euclid3:
+https://infoarena.ro/job_detail/3232329
