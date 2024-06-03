@@ -11,6 +11,8 @@ class Solution:
         flips = [0] * n
 
         for i in range(n):
+            # Toggle current flip state flag
+            # if index is after the first flip group
             if i >= k:
                 current ^= flips[i - k]
 
