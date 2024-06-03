@@ -46,34 +46,20 @@ public:
 
     int query(unsigned node, unsigned left, unsigned right, unsigned qLeft, unsigned qRight)
     {
-        if (qLeft > right || qRight < left)
-            return 0;
-
         if (qLeft <= left && right <= qRight)
             return data[node];
+
+        if (qLeft > right || qRight < left)
+            return 0;
 
         unsigned middle = (left + right) / 2;
         int lQuery = query(2 * node, left, middle, qLeft, qRight);
         int rQuery = query(2 * node + 1, middle + 1, right, qLeft, qRight);
 
-        return max(lQuery, rQuery);
+        return lQuery + rQuery;
     }
 
-    // unsigned inversions(int value, unsigned node, unsigned left, unsigned right)
-    // {
-    //     if (data[node] < value)
-    //         return 1;
-
-    //     unsigned count = 0;
-    //     unsigned middle = (left + right) / 2;
-
-    //     count += inversions(value, 2 * node, left, middle);
-    //     count += inversions(value, 2 * node + 1, middle + 1, right);
-
-    //     return count;
-    // }
-
-    int inversions(int start, int value)
+    int inversions(int start)
     {
         return query(1, 1, n, start + 1, n);
     }
@@ -91,28 +77,17 @@ int main()
 
     SegmentTree st(n);
     int *original = new int[n];
+    unsigned count = 0;
 
     // Read items into segment tree
     for (unsigned i = 0; i < n; i++)
     {
         fin >> x;
         original[i] = x;
-        st.update(i + 1, x, 1, 1, n);
-    }
 
-    unsigned count = 0;
-    // for (unsigned i = 0; i < n; i++)
-    // {
-    //     count += st.inversions(i, original[i]);
-    // }
+        st.update(i, x, 1, 1, n);
 
-    for (int i = n - 1; i >= 0; --i)
-    {
-        if (original[i] > 1)
-        {
-            count += st.query(1, 1, n, 1, original[i] - 1);
-        }
-        st.update(original[i], 1, 1, 1, n);
+        count += st.inversions(i);
     }
 
     fout << count % 9917 << endl;
