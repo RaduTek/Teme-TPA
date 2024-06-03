@@ -1,14 +1,17 @@
 lgput:
-https://infoarena.ro/job_detail/3231473
+https://infoarena.ro/job_detail/3231473?action=view-source
 
 kfib:
-https://infoarena.ro/job_detail/3231496
+https://infoarena.ro/job_detail/3231496?action=view-source
 
 inversmodular:
-https://infoarena.ro/job_detail/3232266
+https://infoarena.ro/job_detail/3232266?action=view-source
 
 euclid3:
-https://infoarena.ro/job_detail/3232329
+https://infoarena.ro/job_detail/3232329?action=view-source
 
 functii:
-https://infoarena.ro/job_detail/3232910
+https://infoarena.ro/job_detail/3232910?action=view-source
+
+jap2:
+https://www.infoarena.ro/job_detail/3233041?action=view-source

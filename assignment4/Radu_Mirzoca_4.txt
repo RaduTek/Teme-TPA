@@ -1,5 +1,8 @@
 arbint:
-https://infoarena.ro/job_detail/3230841
+https://infoarena.ro/job_detail/3230841?action=view-source
 
 inv:
-https://infoarena.ro/job_detail/3233437
+https://infoarena.ro/job_detail/3233437?action=view-source
+
+permutariab:
+https://www.infoarena.ro/job_detail/3233511?action=view-source
