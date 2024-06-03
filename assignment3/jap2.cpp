@@ -25,20 +25,38 @@ ll modExp(ll base, ll power, ll mod)
     return result;
 }
 
-ll modInv(ll base, ll mod)
+ll phi(ll n)
 {
-    return modExp(base, mod - 2, mod);
-}
-
-ll factorial(ll n, ll mod)
-{
-    ll result = 1;
-    for (ll i = 2; i <= n; i++)
-        result = (result * i) % mod;
+    ll result = n;
+    for (ll i = 2; i * i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            while (n % i == 0)
+                n /= i;
+            result -= result / i;
+        }
+    }
+    if (n > 1)
+        result -= result / n;
     return result;
 }
 
-ll combinations(ll n, ll k, ll mod, ll f[])
+ll modInv(ll base, ll mod)
+{
+    return modExp(base, phi(mod) - 1, mod);
+}
+
+ll combinations(ll n, ll k, ll mod, ll factorials[])
+{
+    ll n_f = factorials[n % mod];
+    ll nk_f = (factorials[k % mod] * factorials[(n - k) % mod]) % mod;
+
+    ll result = (n_f / nk_f) % mod;
+    return result;
+}
+
+ll combinations_alt(ll n, ll k, ll mod, ll f[])
 {
     ll n_f = f[n % mod];
     ll k_f = f[k % mod];
@@ -60,7 +78,7 @@ void precalc_factorials(ll f[], ll P)
 
 int main()
 {
-    ll P, Q, A, B;
+    ll P, Q, A, B, result;
 
     fin >> P >> Q;
 
@@ -70,7 +88,15 @@ int main()
     for (; Q; Q--)
     {
         fin >> A >> B;
-        fout << combinations(A, B, P, factorials) << endl;
+        if (A == B)
+        {
+            result = combinations_alt(A, B, P, factorials);
+        }
+        else
+        {
+            result = combinations(A, B, P, factorials);
+        }
+        fout << result << endl;
     }
 
     fin.close();
