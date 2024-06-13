@@ -49,20 +49,13 @@ ll modInv(ll base, ll mod)
 
 ll combinations(ll n, ll k, ll mod, ll factorials[])
 {
+    if (k > n)
+        return 0;
+
     ll n_f = factorials[n % mod];
-    ll nk_f = (factorials[k % mod] * factorials[(n - k) % mod]) % mod;
+    ll nk_f = (factorials[k % mod] * factorials[(n - k % mod)]) % mod;
 
-    ll result = (n_f / nk_f) % mod;
-    return result;
-}
-
-ll combinations_alt(ll n, ll k, ll mod, ll f[])
-{
-    ll n_f = f[n % mod];
-    ll k_f = f[k % mod];
-    ll nk_f = f[(n - k) % mod];
-
-    ll result = (n_f * modInv((k_f * nk_f) % mod, mod)) % mod;
+    ll result = (n_f * modInv(nk_f, mod)) % mod;
     return result;
 }
 
@@ -76,9 +69,24 @@ void precalc_factorials(ll f[], ll P)
     }
 }
 
+ll lucas(ll n, ll k, ll mod, ll factorials[])
+{
+    ll result = 1;
+    while (max(n, k) > 0)
+    {
+        ll tn = n % mod;
+        ll tk = k % mod;
+        result *= combinations(tn, tk, mod, factorials);
+        result %= mod;
+        n /= mod;
+        k /= mod;
+    }
+    return result;
+}
+
 int main()
 {
-    ll P, Q, A, B, result;
+    ll P, Q, A, B;
 
     fin >> P >> Q;
 
@@ -88,15 +96,7 @@ int main()
     for (; Q; Q--)
     {
         fin >> A >> B;
-        if (A == B)
-        {
-            result = combinations_alt(A, B, P, factorials);
-        }
-        else
-        {
-            result = combinations(A, B, P, factorials);
-        }
-        fout << result << endl;
+        fout << lucas(A, B, P, factorials) << endl;
     }
 
     fin.close();
